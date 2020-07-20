@@ -2,10 +2,10 @@ import React, { Fragment } from 'react'
 import MoreButton from '../components/MoreButton'
 import Sushi from '../components/Sushi'
  
-function displayNextFourSushies(sushies,currentIndex){
+function displayNextFourSushies(sushies,currentIndex,buySushi){
     let sushiesToBeDisplay = []
     for (let i = currentIndex; i < currentIndex + 4 ; i++){
-      sushiesToBeDisplay.push(<Sushi {...sushies[i]}/>)
+      sushiesToBeDisplay.push(<Sushi key={i} {...sushies[i]} buySushi={buySushi}/>)
     }
     return sushiesToBeDisplay
 }
@@ -18,7 +18,7 @@ const SushiContainer = (props) => {
     <Fragment>
       <div className="belt">
         {
-          displayNextFourSushies(props.sushies,props.currentIndex)
+          displayNextFourSushies(props.sushies,props.currentIndex,props.buySushi)
           /* 
              Render Sushi components here!
           */
