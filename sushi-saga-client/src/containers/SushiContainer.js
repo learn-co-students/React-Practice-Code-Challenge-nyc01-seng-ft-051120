@@ -25,7 +25,7 @@ render(){
       <div className="belt">
         {
          currentSushi.map((sushi, index) =>
-           <Sushi key={index} sushi={sushi}/>
+           <Sushi key={index} sushi={sushi} eat={this.eat}/>
        )}
         <MoreButton more={this.more}/>
       </div>
