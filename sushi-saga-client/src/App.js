@@ -7,7 +7,7 @@ const API = "http://localhost:3000/sushis"
 
 class App extends Component {
   state = {
-    sushis: [],
+    fetchedSushis: [],
     budget: 100,
     consumedSushi: []
   }
@@ -20,13 +20,16 @@ class App extends Component {
     .then(r => r.json())
     .then(data => {
       this.setState({
-        sushis: data
+        fetchedSushis: data
       })
     })
   }
 
-  getMoreSushi = () => {
+  
+
+  getMoreSushi = (x,y) => {
     console.log('get me more sushi');
+   
   }
 
   // eatSushi = () => {
@@ -39,10 +42,10 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state);
+    let smallerSushiArray = this.state.fetchedSushis.slice(0,4)
     return (
       <div className="app">
-        <SushiContainer sushis={this.state.sushis} getMoreSushi={this.getMoreSushi}/>
+        <SushiContainer sushis={smallerSushiArray} getMoreSushi={this.getMoreSushi}/>
         <Table budget={this.state.budget} />
       </div>
     );
