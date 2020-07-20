@@ -9,12 +9,15 @@ state = {
  currentSushiStart: 0,
  currentSushiEnd: 4,
 }
- more() {
-
+ more = () => {
+   this.setState({
+     currentSushiStart: this.state.currentSushiStart + 4,
+     currentSushiEnd: this.state.currentSushiEnd + 4
+   })
  }
 
 render(){
-  console.log(this.props)
+
 
   let currentSushi = this.props.sushi.slice(this.state.currentSushiStart, this.state.currentSushiEnd)
   return (
@@ -24,7 +27,7 @@ render(){
          currentSushi.map((sushi, index) =>
            <Sushi key={index} sushi={sushi}/>
        )}
-        <MoreButton />
+        <MoreButton more={this.more}/>
       </div>
     </Fragment>
   )
