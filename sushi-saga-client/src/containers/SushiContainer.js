@@ -10,14 +10,14 @@ const SushiContainer = (props) => {
           <Sushi
           key={sushi.id}
           id={sushi.id}
-          name={sushi.name}
-          price={sushi.price}
-          image={sushi.img_url} 
+          sushi={sushi}
+          eat={props.eat}
+          taken={props.eaten.includes(sushi)}
           />
         )
         }
      
-        <MoreButton getMoreSushi={props.getMoreSushi}/>
+        <MoreButton more={props.more}/>
       </div>
     </Fragment>
   )

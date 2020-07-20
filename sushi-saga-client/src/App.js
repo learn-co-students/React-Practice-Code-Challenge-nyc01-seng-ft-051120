@@ -7,9 +7,10 @@ const API = "http://localhost:3000/sushis"
 
 class App extends Component {
   state = {
-    fetchedSushis: [],
+    sushis: [],
     budget: 100,
-    consumedSushi: []
+    eaten: [],
+    displayIndex: 0
   }
   componentDidMount(){
     this.fetchSushi()
@@ -20,33 +21,42 @@ class App extends Component {
     .then(r => r.json())
     .then(data => {
       this.setState({
-        fetchedSushis: data
+        sushis: data
       })
     })
   }
 
-  
-
-  getMoreSushi = (x,y) => {
-    console.log('get me more sushi');
-   
+  getFourSushi = () => {
+    return this.state.sushis.slice(this.state.displayIndex, this.state.displayIndex + 4)
   }
 
-  // eatSushi = () => {
-  //   this.setState(prevState => {
-  //     return {
-  //       budget: prevState.budget - 
-  //     }
-  //   })
-  // }
+  more = (e) => {
+    let newDisplayIndex = this.state.displayIndex + 4
+    this.setState({
+      displayIndex: newDisplayIndex
+    })
+  }
 
+  eat = (sushi) => {
+    const newMoney = this.state.budget - sushi.price
+    if (!this.state.eaten.includes(sushi) && newMoney >= 0){
+      this.setState({
+        eaten: [...this.state.eaten, sushi],
+        budget: newMoney
+      })
+    }
+  }
 
   render() {
-    let smallerSushiArray = this.state.fetchedSushis.slice(0,4)
     return (
       <div className="app">
-        <SushiContainer sushis={smallerSushiArray} getMoreSushi={this.getMoreSushi}/>
-        <Table budget={this.state.budget} />
+        <SushiContainer 
+        sushis={this.getFourSushi()} 
+        more={this.more}
+        eat={this.eat}
+        eaten={this.state.eaten}
+        />
+        <Table budget={this.state.budget} eaten={this.state.eaten} />
       </div>
     );
   }
