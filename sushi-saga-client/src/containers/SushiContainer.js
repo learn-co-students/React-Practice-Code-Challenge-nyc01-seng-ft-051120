@@ -4,43 +4,41 @@ import Sushi from '../components/Sushi'
 
 class SushiContainer extends React.Component {
 
-  state={
-    limit:4
+  state = {
+    limit: 4
   }
-handleMoreSushi=()=>{
-if(this.state.limit < this.props.sushis){
-  this.setState((prevState) => ({ limit: (prevState.limit + 4) }));
-}
-}
+  handleMoreSushi = () => {
+    let newDisplayIndex = this.state.limit + 4
+    this.setState({
+      limit: newDisplayIndex
+    })
+  }
 
-eatMe = (id)=>{
-  
-  let eat = this.props.sushis.filter(i=>i!==id)
-  console.log(eat)
 
-}
 
   render() {
-    let sushis=this.props.sushis.slice(0,this.state.limit)
+    let sushis = this.props.sushis.slice(this.state.limit, this.state.limit + 4)
     return (
-      
-         <React.Fragment>
-      <div className="belt">
-       
-        {sushis.map(sushi=>
-        <Sushi 
-        eatMe={this.eatMe}
-        id={sushi.id}
-        name={sushi.name}
-      img_url={sushi.img_url}
-     price={sushi.price}
-        />
-        )
-        }
-        <MoreButton handleMoreSushi={this.handleMoreSushi}/>
-      </div>
-    </React.Fragment>
-  ) 
+
+      <React.Fragment>
+        <div className="belt">
+
+          {sushis.map(sushi =>
+            <Sushi
+              eatMe={this.props.eatMe}
+              sushi={sushi}
+              id={sushi.id}
+              name={sushi.name}
+              img_url={sushi.img_url}
+              price={sushi.price}
+              taken={this.props.eaten.includes(sushi)}
+            />
+          )
+          }
+          <MoreButton handleMoreSushi={this.handleMoreSushi} />
+        </div>
+      </React.Fragment>
+    )
 
   }
 }
