@@ -3,14 +3,24 @@ import React, { Component, Fragment } from 'react'
 class Sushi extends Component{
 
 state = {
+  sushiId: this.props.sushi.key,
   eaten: false
 }
 
+componentDidUpdate(prevProps){
+  if (this.state.sushiId !== this.props.sushi.key) {
+      this.setState({eaten: false})
+  }
+
+}
+
 eat() {
-  this.setState({eaten: true})
+  this.setState({eaten: true});
+  this.props.dishBin()
 }
 
 render(){
+
   return (
     <div className="sushi">
       <div className="plate"
