@@ -13,7 +13,6 @@ function displayNextFourSushies(sushies,currentIndex,buySushi){
 
 
 const SushiContainer = (props) => {
-  console.log(props)
   return (
     <Fragment>
       <div className="belt">

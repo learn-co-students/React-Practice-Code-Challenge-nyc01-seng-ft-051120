@@ -7,23 +7,20 @@ class Sushi extends React.Component {
   }
 
   eatSushi = ()=>{
-    const {buySushi,price} = this.props
-    if(buySushi(price)){
-      this.setState({wasEaten:true})
-    }else{
+    const {buySushi,price,id} = this.props
+    if(!buySushi(price,id)){
       alert("You don't have enough money")
     }
   }
 
   render(){
-    console.log(this.props);
     return (
       <div className="sushi">
         <div className="plate" 
              onClick={/* Give me a callback! */ this.eatSushi}>
           { 
             /* Tell me if this sushi has been eaten! */ 
-            this.state.wasEaten ?
+            this.props.eaten ?
               null
             :
               <img src={this.props.img_url} width="100%" />
