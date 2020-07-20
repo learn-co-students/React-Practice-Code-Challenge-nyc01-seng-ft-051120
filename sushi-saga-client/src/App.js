@@ -10,7 +10,7 @@ class App extends Component {
   state = {
     sushi: [],
     money: 100,
-    eaten: false
+    plates: []
   }
 
 
@@ -40,23 +40,26 @@ class App extends Component {
   
   }
 
-  eatSushi = (e) => {
-     console.log(e.target)
-     this.setState({
-       eaten: true
-     })
-     
+  addPlates = () => {
+    this.setState({
+      plates: this.state.plates.push(1)
+    })
   }
 
+ 
+
   render() {
+    console.log(this.state.eaten)
     return (
       <div className="app">
         <SushiContainer 
         sushi={this.state.sushi} 
         eaten={this.state.eaten}
         moreSushiHandler={this.moreSushiHandler}
-        eatSushi={this.eatSushi}/>
-        <Table money={this.state.money}/>
+        addPlates={this.addPlates}
+        />
+        <Table money={this.state.money}
+        plates={this.state.plates}/>
       </div>
     );
   }
