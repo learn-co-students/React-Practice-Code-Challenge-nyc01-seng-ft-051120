@@ -2,21 +2,21 @@ import React, { Fragment } from 'react'
 
 const Sushi = (props) => {
 
-  console.log(props)
+  // console.log(props)
   return (
     <div className="sushi">
       <div className="plate" 
-           onClick={/* Give me a callback! */ null}>
+           onClick={() => props.eat(props.id, props.price)}>
         { 
           /* Tell me if this sushi has been eaten! */ 
-          false ?
+          props.isEaten ?
             null
           :
-            <img src={props.sushi.img_url} width="100%" />
+            <img src={props.img_url} width="100%" />
         }
       </div>
       <h4 className="sushi-details">
-        {props.sushi.name} - ${props.sushi.price}
+        {props.name} - ${props.price}
       </h4>
     </div>
   )
