@@ -10,16 +10,19 @@ class App extends Component {
   state = {
     sushi: [],
     money: 100,
-    plates: []
+    plates: [],
+    pageNumber: 1
   }
 
 
   fetchSushi = () => {
-    fetch('http://localhost:3000/sushis/?_limit=4')
+    let currentPage = this.state.pageNumber
+    fetch(`http://localhost:3000/sushis/?_limit=4&_page=${currentPage}`)
     .then(res => res.json())
     .then( data => {
       this.setState({
-        sushi: data
+        sushi: data,
+        pageNumber: parseInt(this.state.pageNumber) + 1
       })
     })
   }
@@ -29,14 +32,7 @@ class App extends Component {
   
   moreSushiHandler = () => {
     console.log('hi')
-    let pageNumber = this.state.pageNumber
-    fetch('http://localhost:3000/sushis/?_limit=4')
-    .then(res => res.json())
-    .then( data => {
-      this.setState({
-        sushi: data
-      })
-    })
+    this.fetchSushi()
   
   }
 
