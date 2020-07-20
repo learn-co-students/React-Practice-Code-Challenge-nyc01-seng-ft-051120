@@ -24,7 +24,7 @@ render(){
       <div className="belt">
         {
          currentSushi.map((sushi, index) =>
-           <Sushi key={sushi.id} sushi={sushi} dishBin={this.props.dishBin}/>
+           <Sushi key={sushi.id} sushi={sushi} dishBin={this.props.dishBin} budget={this.props.budget}/>
        )}
         <MoreButton more={this.more}/>
       </div>

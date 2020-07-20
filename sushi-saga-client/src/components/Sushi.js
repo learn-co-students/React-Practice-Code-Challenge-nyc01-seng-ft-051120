@@ -14,9 +14,13 @@ componentDidUpdate(prevProps){
 
 }
 
-eat() {
+eat(dishPrice) {
+  if (this.props.budget < dishPrice) {
+   console.log("out of money")
+ } else {
   this.setState({eaten: true});
-  this.props.dishBin()
+  this.props.dishBin(dishPrice)
+ }
 }
 
 render(){
@@ -24,7 +28,7 @@ render(){
   return (
     <div className="sushi">
       <div className="plate"
-           onClick={()=> this.eat()}>
+           onClick={()=> this.eat(this.props.sushi.price)}>
         {
            !this.state.eaten ?
             <img src={this.props.sushi.img_url} width="100%" />
