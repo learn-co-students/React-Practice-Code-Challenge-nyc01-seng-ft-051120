@@ -4,35 +4,28 @@ import Sushi from '../components/Sushi'
 
 class SushiContainer extends React.Component {
   state={
-    sushis: []
+    moreFirst: 0,
+    moreLast: 4
   }
-  more=()=>{
-    this.setState({sushis:this.props.})
+  loadMore=()=>{
+    this.setState({moreFirst: this.state.moreFirst+4})
+    this.setState({moreLast: this.state.moreLast+4})
   }
 
   render(){  
     return (
       <Fragment>
         <div className="belt">
-          {this.props.sushis.slice(0,4).map(sushi=> <Sushi key={sushi.id} {...sushi}/>)}
-          <MoreButton />
+          {this.props.sushis.slice(this.state.moreFirst,this.state.moreLast).map(sushi=> 
+          <Sushi key={sushi.id} {...sushi} 
+                  handleEat={this.props.handleEat}
+                  eaten={this.props.eatSushi.includes(sushi)}/>)}
+
+          <MoreButton more={this.loadMore}/>
           
         </div>
       </Fragment>
     )}
-
 }
-// const SushiContainer = (props) => {
-//     return (
-//       <Fragment>
-//         <div className="belt">
-//           {props.sushis.slice(0,4).map(sushi=> <Sushi key={sushi.id} {...sushi}/>)}
-//           <MoreButton more={more}/>
-          
-//         </div>
-//       </Fragment>
-//     )
-  
-// }
 
 export default SushiContainer
