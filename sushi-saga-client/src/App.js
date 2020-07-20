@@ -9,7 +9,7 @@ class App extends Component {
   state = {
     sushis: [],
     budget: 100,
-    eaten: [],
+    eaten: [], // running this back, we're gonna do this as an array of ID's
     displayIndex: 0
   }
   componentDidMount(){
@@ -36,6 +36,12 @@ class App extends Component {
       displayIndex: newDisplayIndex
     })
   }
+
+  // eatSushi = (id) => {
+  //   this.setState({
+  //     eatenSushi: [...this.state.eatenSushi, id]
+  //   })
+  // }
 
   eat = (sushi) => {
     const newMoney = this.state.budget - sushi.price
