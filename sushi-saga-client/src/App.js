@@ -7,7 +7,7 @@ const API = "http://localhost:3000/sushis"
 
 class App extends Component {
   state = {
-    page: 5,
+    page: 4,
     ateSushi: [],
     sushi: [],
     budget: 100
@@ -24,13 +24,13 @@ class App extends Component {
   renderSushi = () => {
     let n = this.state.page
     let sushi = this.state.sushi
-    let rendered = sushi.map(sushi => sushi.id < n && !this.state.ateSushi.includes(sushi) ? sushi : null)
+    let rendered = sushi.map(sushi => sushi.id <= n && !this.state.ateSushi.includes(sushi) ? sushi : null)
     return <SushiContainer eatSushi={this.eatSushi} sushi={rendered} moreSushiButton={this.moreSushiButton}/>
   }
 
   moreSushiButton = () => {
     let n = this.state.page
-    this.setState( {page: n*2 })
+    this.setState( {page: n+4 })
   }
 
   eatSushi = (id) => {
