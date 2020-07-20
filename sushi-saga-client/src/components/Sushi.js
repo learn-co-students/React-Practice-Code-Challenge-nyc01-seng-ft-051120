@@ -4,11 +4,12 @@ const Sushi = (props) => {
   return (
     <div className="sushi">
       <div className="plate" 
-           onClick={/* Give me a callback! */ null}>
+           onClick={props.eatSushi}>
         { 
           /* Tell me if this sushi has been eaten! */ 
-          false ?
-            null
+          props.eaten ?
+          // false ?
+            <img src="" width="100%" />
           :
             <img src={props.sushi.img_url} width="100%" />
         }

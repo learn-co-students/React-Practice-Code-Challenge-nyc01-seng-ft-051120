@@ -8,7 +8,9 @@ const API = "http://localhost:3000/sushis"
 class App extends Component {
 
   state = {
-    sushi: []
+    sushi: [],
+    money: 100,
+    eaten: false
   }
 
 
@@ -27,7 +29,23 @@ class App extends Component {
   
   moreSushiHandler = () => {
     console.log('hi')
+    let pageNumber = this.state.pageNumber
+    fetch('http://localhost:3000/sushis/?_limit=4')
+    .then(res => res.json())
+    .then( data => {
+      this.setState({
+        sushi: data
+      })
+    })
   
+  }
+
+  eatSushi = (e) => {
+     console.log(e.target)
+     this.setState({
+       eaten: true
+     })
+     
   }
 
   render() {
@@ -35,8 +53,10 @@ class App extends Component {
       <div className="app">
         <SushiContainer 
         sushi={this.state.sushi} 
-        moreSushiHandler={this.moreSushiHandler}/>
-        <Table />
+        eaten={this.state.eaten}
+        moreSushiHandler={this.moreSushiHandler}
+        eatSushi={this.eatSushi}/>
+        <Table money={this.state.money}/>
       </div>
     );
   }
