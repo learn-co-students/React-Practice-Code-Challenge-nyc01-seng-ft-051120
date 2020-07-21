@@ -6,59 +6,39 @@ import Table from './containers/Table';
 const API = "http://localhost:3000/sushis"
 
 class App extends Component {
-
   state = {
     sushi: [],
-    money: 100,
-    plates: [],
-    pageNumber: 1
+    eatenSushi: [] 
+
   }
 
-
-  fetchSushi = () => {
-    let currentPage = this.state.pageNumber
-    fetch(`http://localhost:3000/sushis/?_limit=4&_page=${currentPage}`)
-    .then(res => res.json())
-    .then( data => {
-      this.setState({
-        sushi: data,
-        pageNumber: parseInt(this.state.pageNumber) + 1
-      })
-    })
-  }
   componentDidMount(){
-    this.fetchSushi()
+    this.getSushi()
   }
   
-  moreSushiHandler = () => {
-    console.log('hi')
-    this.fetchSushi()
-  
+  getSushi = () => {
+    fetch(API)
+      .then(res => res.json())
+      .then(sushi => this.setState({ sushi })) 
   }
 
-  addPlates = () => {
-    this.setState({
-      plates: this.state.plates.push(1)
-    })
+  eatSushi = (id) => {
+    if(!this.state.eatenSushi.includes(id)){
+      this.setState({ eatenSushi: [ ...this.state.eatenSushi, id ]})
+    }
   }
-
- 
 
   render() {
-    console.log(this.state.eaten)
+    console.log(this.state)
     return (
       <div className="app">
         <SushiContainer 
-        sushi={this.state.sushi} 
-        eaten={this.state.eaten}
-        moreSushiHandler={this.moreSushiHandler}
-        addPlates={this.addPlates}
-        />
-        <Table money={this.state.money}
-        plates={this.state.plates}/>
+          eat={this.eatSushi}
+          eatenSushi={this.state.eatenSushi}
+          sushi={this.state.sushi}/>
+        <Table 
+          eatenSushi={this.state.eatenSushi}/>
       </div>
     );
   }
 }
-
-export default App;
